@@ -1,0 +1,12 @@
+MapTranslationUri: "https://services.saucontds.com/tds-map/nyw/nywvehiclePositions.do"
+BusLocationUri: "https://services.saucontds.com/tds-map/nyw/nywmapTranslation.do"
+
+BusRoutes:
+  1: "34 st."
+  36: "34th St. / 42nd St."
+  33: "44th St. & 57th St."
+  42: "Downtown Combo"
+  51: "Combo Intra"
+
+
+
