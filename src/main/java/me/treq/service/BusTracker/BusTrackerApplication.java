@@ -1,12 +1,17 @@
 package me.treq.service.BusTracker;
 
 import me.treq.service.BusTracker.dao.BusLocationDao;
-import me.treq.service.BusTracker.dao.RestBusLocationDaoImpl;
-import me.treq.service.BusTracker.model.ApplicationConfig;
+import me.treq.service.BusTracker.dao.BusLocationDaoImpl;
+import me.treq.service.BusTracker.dao.BusRouteDao;
+import me.treq.service.BusTracker.dao.BusRouteDaoImpl;
+import me.treq.service.BusTracker.model.BusRoute;
+import me.treq.service.BusTracker.model.config.ApplicationConfig;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.TrustStrategy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,9 +28,12 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SpringBootApplication
 public class BusTrackerApplication {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(BusTrackerApplication.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(BusTrackerApplication.class, args);
@@ -59,28 +67,42 @@ public class BusTrackerApplication {
 				new HttpComponentsClientHttpRequestFactory();
 
 		requestFactory.setHttpClient(httpClient);
-		RestTemplate restTemplate = new RestTemplate(requestFactory);
-		return restTemplate;
+
+		return new RestTemplate(requestFactory);
 	}
 
 	@Bean
 	public BusLocationDao busLocationDao(RestTemplate restTemplate, ApplicationConfig appConfig) {
-		String busLocationUriStr;
 		URI busLocationBaseUri =  UriComponentsBuilder
-				.fromUriString("https://services.saucontds.com/tds-map/nyw/nywvehiclePositions.do")
+				.fromUriString(appConfig.getBusLocationUri())
 				.build().toUri();
 		URI mapTranslationBaseUri = UriComponentsBuilder
-				.fromUriString("https://services.saucontds.com/tds-map/nyw/nywmapTranslation.do")
+				.fromUriString(appConfig.getMapTranslationUri())
 				.build().toUri();
-		Collection<Integer> routeIds = appConfig.getBusRoutes().keySet();
-		return new RestBusLocationDaoImpl(restTemplate, busLocationBaseUri, mapTranslationBaseUri, routeIds);
+
+		List<BusRoute> busRoutes = appConfig.getBusRoutes();
+
+        LOGGER.info("Initialized bus routes: {}", busRoutes);
+
+		List<Integer> routeIds =
+				appConfig.getBusRoutes().stream().map(busRoute -> busRoute.getRouteId()).collect(Collectors.toList());
+
+
+		return new BusLocationDaoImpl(restTemplate, busLocationBaseUri, mapTranslationBaseUri, routeIds);
 	}
 
 	@Bean
+    public BusRouteDao busRouteDao(ApplicationConfig applicationConfig, RestTemplate restTemplate) {
+        URI mapTranslationBaseUri = UriComponentsBuilder
+                .fromUriString(applicationConfig.getMapTranslationUri())
+                .build().toUri();
+	    return new BusRouteDaoImpl(applicationConfig.getBusRoutes(), restTemplate, mapTranslationBaseUri);
+    }
+
+    @Bean
 	public CommandLineRunner run(BusLocationDao busLocationDao, ApplicationConfig appConfig) throws Exception {
 		return args -> {
-			System.out.println("yin " + busLocationDao.getBuses(1));
-			System.out.println("yinnnnnn " + appConfig);
+			System.out.println("Health check: " + busLocationDao.getBuses(1));
 		};
 	}
 

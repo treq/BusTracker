@@ -1,12 +1,45 @@
-MapTranslationUri: "https://services.saucontds.com/tds-map/nyw/nywvehiclePositions.do"
-BusLocationUri: "https://services.saucontds.com/tds-map/nyw/nywmapTranslation.do"
+busLocationUri: "https://services.saucontds.com/tds-map/nyw/nywvehiclePositions.do"
+mapTranslationUri: "https://services.saucontds.com/tds-map/nyw/nywmapTranslation.do"
 
-BusRoutes:
-  1: "34 st."
-  36: "34th St. / 42nd St."
-  33: "44th St. & 57th St."
-  42: "Downtown Combo"
-  51: "Combo Intra"
-
+# array of BusRoute
+busRoutes:
+  -
+    routeId: 1
+    routeDescription:  "34 st."
+    polylineArray:
+      -
+        latitude: 40.760001
+        longitude: 74.002769
+      -
+        latitude: 40.75701
+        longitude: 74.004872
+      -
+        latitude: 40.745729
+        longitude: 73.978157
+      -
+        latitude: 40.745062
+        longitude: 73.978629
+      -
+        latitude: 40.745761
+        longitude: 73.98026
+      -
+        latitude: 40.746412
+        longitude: 73.979745
+  -
+    routeId: 36
+    routeDescription: "34th St. / 42nd St."
+    polylineArray: []
+  -
+    routeId: 33
+    routeDescription: "44th St. & 57th St."
+    polylineArray: []
+  -
+    routeId: 42
+    routeDescription: "Downtown Combo"
+    polylineArray: []
+  -
+    routeId: 51
+    routeDescription: "Combo Intra"
+    polylineArray: []
 
 

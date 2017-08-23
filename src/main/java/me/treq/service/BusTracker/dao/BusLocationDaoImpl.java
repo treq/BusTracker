@@ -17,8 +17,8 @@ import java.net.URI;
 import java.util.*;
 
 @Repository("busLocationDao")
-public class RestBusLocationDaoImpl implements BusLocationDao {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RestBusLocationDaoImpl.class);
+public class BusLocationDaoImpl implements BusLocationDao {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BusLocationDaoImpl.class);
 
     private final RestTemplate restTemplate;
 
@@ -27,8 +27,8 @@ public class RestBusLocationDaoImpl implements BusLocationDao {
     private final Map<Integer, URI> mapTranslationUriByRouteId;
 
     @Autowired
-    public RestBusLocationDaoImpl(RestTemplate restTemplate, URI busLocationBaseUri,
-                                  URI mapTranslationBaseUri, Collection<Integer> routeIds) {
+    public BusLocationDaoImpl(RestTemplate restTemplate, URI busLocationBaseUri,
+                              URI mapTranslationBaseUri, Collection<Integer> routeIds) {
         this.restTemplate = restTemplate;
 
         Map<Integer, URI> busLocationUriByRouteId = new HashMap<>();
@@ -44,7 +44,7 @@ public class RestBusLocationDaoImpl implements BusLocationDao {
         this.busLocationUriByRouteId = ImmutableMap.copyOf(busLocationUriByRouteId);
         this.mapTranslationUriByRouteId = ImmutableMap.copyOf(mapTranslationUriByRouteId);
 
-        LOGGER.info("Initialized RestBusLocationDaoImpl with {} and {}",
+        LOGGER.info("Initialized BusLocationDaoImpl with {} and {}",
                 this.busLocationUriByRouteId, this.mapTranslationUriByRouteId);
     }
 

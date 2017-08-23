@@ -34,5 +34,4 @@ public class BusController {
     public Bus getBusById(@PathVariable int id) {
         return this.busService.getBus(id);
     }
-
 }

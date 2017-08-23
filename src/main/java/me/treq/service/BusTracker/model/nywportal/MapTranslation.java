@@ -6,8 +6,6 @@ import lombok.Data;
 @JsonIgnoreProperties
 @Data
 public class MapTranslation {
-    public MapTranslation() {}
-
     private double mapConversionX;
 
     private double mapConversionY;
