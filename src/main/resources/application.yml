@@ -9,22 +9,22 @@ busRoutes:
     polylineArray:
       -
         latitude: 40.760001
-        longitude: 74.002769
+        longitude: -74.002769
       -
         latitude: 40.75701
-        longitude: 74.004872
+        longitude: -74.004872
       -
         latitude: 40.745729
-        longitude: 73.978157
+        longitude: -73.978157
       -
         latitude: 40.745062
-        longitude: 73.978629
+        longitude: -73.978629
       -
         latitude: 40.745761
-        longitude: 73.98026
+        longitude: -73.98026
       -
         latitude: 40.746412
-        longitude: 73.979745
+        longitude: -73.979745
   -
     routeId: 36
     routeDescription: "34th St. / 42nd St."
