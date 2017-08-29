@@ -28,11 +28,59 @@ busRoutes:
   -
     routeId: 36
     routeDescription: "34th St. / 42nd St."
-    polylineArray: []
+    polylineArray:
+      -
+        latitude: 40.760017
+        longitude: -74.002748
+      -
+        latitude: 40.757026
+        longitude: -74.004915
+      -
+        latitude: 40.748411
+        longitude: -73.984573
+      -
+        latitude: 40.753483
+        longitude: -73.980861
+      -
+        latitude: 40.762032
+        longitude: -74.001267
+      -
+        latitude: 40.760147
+        longitude: -74.002662
   -
     routeId: 33
     routeDescription: "44th St. & 57th St."
-    polylineArray: []
+    polylineArray:
+      -
+        latitude: 40.760001
+        longitude: -74.00278
+      -
+        latitude: 40.761959
+        longitude: -74.001299
+      -
+        latitude: 40.763487
+        longitude: -73.99925
+      -
+        latitude: 40.76395
+        longitude: -73.998832
+      -
+        latitude: 40.76616
+        longitude: -73.997222
+      -
+        latitude: 40.757904
+        longitude: -73.977631
+      -
+        latitude: 40.762991
+        longitude: -73.973941
+      -
+        latitude: 40.766745
+        longitude: -73.982888
+      -
+        latitude: 40.758546
+        longitude: -73.988843
+      -
+        latitude: 40.763113
+        longitude: -73.999711
   -
     routeId: 42
     routeDescription: "Downtown Combo"
