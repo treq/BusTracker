@@ -4,7 +4,7 @@ mapTranslationUri: "https://services.saucontds.com/tds-map/nyw/nywmapTranslation
 # array of BusRoute
 busRoutes:
   -
-    routeId: 1
+    routeId: "1"
     routeDescription:  "34 st."
     polylineArray:
       -
@@ -26,7 +26,7 @@ busRoutes:
         latitude: 40.746412
         longitude: -73.979745
   -
-    routeId: 36
+    routeId: "36"
     routeDescription: "34th St. / 42nd St."
     polylineArray:
       -
@@ -48,7 +48,7 @@ busRoutes:
         latitude: 40.760147
         longitude: -74.002662
   -
-    routeId: 33
+    routeId: "33"
     routeDescription: "44th St. & 57th St."
     polylineArray:
       -
@@ -82,11 +82,11 @@ busRoutes:
         latitude: 40.763113
         longitude: -73.999711
   -
-    routeId: 42
+    routeId: "42"
     routeDescription: "Downtown Combo"
     polylineArray: []
   -
-    routeId: 51
+    routeId: "51"
     routeDescription: "Combo Intra"
     polylineArray: []
 

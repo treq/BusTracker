@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Data
 public class BusRoute {
-    private int routeId;
+    private String routeId;
 
     private String routeDescription;
 

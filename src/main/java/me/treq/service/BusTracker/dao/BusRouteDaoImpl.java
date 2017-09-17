@@ -24,7 +24,7 @@ public class BusRouteDaoImpl implements BusRouteDao {
 
     private static final String QUERY_PARAM_ID = "id";
 
-    private final Map<Integer, BusRoute> routeById;
+    private final Map<String, BusRoute> routeById;
 
     private final RestTemplate restTemplate;
 
@@ -41,11 +41,17 @@ public class BusRouteDaoImpl implements BusRouteDao {
     }
 
     @Override
-    public BusRoute getRouteById(int routeId) {
+    public BusRoute getRouteById(String routeId) {
+        BusRoute busRoute = this.routeById.get(routeId);
+        if (busRoute == null) {
+            LOGGER.debug("route not found {}", routeId);
+            return null;
+        }
+
         URI uri =
                 UriComponentsBuilder.fromUri(this.mapTranslationBaseUri).queryParam(QUERY_PARAM_ID, routeId).build().toUri();
 
-        MapTranslation mapTranslation;
+        MapTranslation mapTranslation = null;
         try {
             mapTranslation = this.restTemplate.getForObject(uri, MapTranslation.class);
         } catch (HttpServerErrorException e) {
@@ -53,8 +59,7 @@ public class BusRouteDaoImpl implements BusRouteDao {
             return null;
         }
 
-        BusRoute busRoute = this.routeById.get(routeId);
-        busRoute.setRouteViewCenter(LocationTranslationUtil.getCentralGeoLocation(mapTranslation));
+        busRoute.setRouteViewCenter(ExternalModelsTranslationUtil.getCentralGeoLocation(mapTranslation));
         busRoute.setRouteSpanLatitude(mapTranslation.getMapBoundsMaxY() - mapTranslation.getMapBoundsMinY());
         busRoute.setRouteSpanLongitude(mapTranslation.getMapBoundsMaxX() - mapTranslation.getMapBoundsMinX());
 
@@ -62,7 +67,7 @@ public class BusRouteDaoImpl implements BusRouteDao {
     }
 
     @Override
-    public Set<Integer> getAvailableRoutes() {
+    public Set<String> getAvailableRoutes() {
         return this.routeById.keySet();
     }
 

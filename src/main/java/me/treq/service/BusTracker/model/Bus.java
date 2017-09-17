@@ -7,4 +7,6 @@ public class Bus {
     private final long id;
 
     private final Location location;
+
+    private final int direction;
 }

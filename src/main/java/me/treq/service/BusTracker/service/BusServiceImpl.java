@@ -25,7 +25,7 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
-    public Collection<Bus> getBuses(int routeId) {
+    public Collection<Bus> getBuses(String routeId) {
         return this.busLocationDao.getBuses(routeId);
     }
 
@@ -35,21 +35,16 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
-    public Location getCentralGeoLocation(int routeId) {
-        return this.busLocationDao.getCentralGeoLocation(routeId);
-    }
-
-    @Override
-    public BusRoute getRouteById(int routeId) {
+    public BusRoute getRouteById(String routeId) {
         return this.busRouteDao.getRouteById(routeId);
     }
 
     @Override
     public List<BusRoute> getActiveBusRoutes() {
-        Set<Integer> allRouteIds = this.busRouteDao.getAvailableRoutes();
+        Set<String> allRouteIds = this.busRouteDao.getAvailableRoutes();
         List<BusRoute> activeRoutes = new ArrayList<>();
 
-        for (Integer routeId : allRouteIds) {
+        for (String routeId : allRouteIds) {
             BusRoute busRoute = this.busRouteDao.getRouteById(routeId);
             if (busRoute != null) {
                 activeRoutes.add(busRoute);

@@ -24,7 +24,7 @@ public class BusRouteController {
     }
 
     @RequestMapping("/{routeId}")
-    public BusRoute getRouteById(@PathVariable Integer routeId) {
+    public BusRoute getRouteById(@PathVariable String routeId) {
         return this.busService.getRouteById(routeId);
     }
 

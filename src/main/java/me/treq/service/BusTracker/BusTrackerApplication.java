@@ -84,7 +84,7 @@ public class BusTrackerApplication {
 
         LOGGER.info("Initialized bus routes: {}", busRoutes);
 
-		List<Integer> routeIds =
+		List<String> routeIds =
 				appConfig.getBusRoutes().stream().map(busRoute -> busRoute.getRouteId()).collect(Collectors.toList());
 
 
@@ -102,7 +102,7 @@ public class BusTrackerApplication {
     @Bean
 	public CommandLineRunner run(BusLocationDao busLocationDao, ApplicationConfig appConfig) throws Exception {
 		return args -> {
-			System.out.println("Health check: " + busLocationDao.getBuses(1));
+			System.out.println("Health check: " + busLocationDao.getBuses("1"));
 		};
 	}
 

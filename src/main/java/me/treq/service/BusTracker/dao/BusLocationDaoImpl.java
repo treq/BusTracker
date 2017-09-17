@@ -22,19 +22,19 @@ public class BusLocationDaoImpl implements BusLocationDao {
 
     private final RestTemplate restTemplate;
 
-    private final Map<Integer, URI> busLocationUriByRouteId;
+    private final Map<String, URI> busLocationUriByRouteId;
 
-    private final Map<Integer, URI> mapTranslationUriByRouteId;
+    private final Map<String, URI> mapTranslationUriByRouteId;
 
     @Autowired
     public BusLocationDaoImpl(RestTemplate restTemplate, URI busLocationBaseUri,
-                              URI mapTranslationBaseUri, Collection<Integer> routeIds) {
+                              URI mapTranslationBaseUri, Collection<String> routeIds) {
         this.restTemplate = restTemplate;
 
-        Map<Integer, URI> busLocationUriByRouteId = new HashMap<>();
-        Map<Integer, URI> mapTranslationUriByRouteId = new HashMap<>();
+        Map<String, URI> busLocationUriByRouteId = new HashMap<>();
+        Map<String, URI> mapTranslationUriByRouteId = new HashMap<>();
 
-        for (Integer routeId : routeIds) {
+        for (String routeId : routeIds) {
             busLocationUriByRouteId.put(routeId,
                     UriComponentsBuilder.fromUri(busLocationBaseUri).queryParam("id", routeId).build().toUri());
             mapTranslationUriByRouteId.put(routeId,
@@ -49,7 +49,7 @@ public class BusLocationDaoImpl implements BusLocationDao {
     }
 
     @Override
-    public List<Bus> getBuses(int routeId) {
+    public List<Bus> getBuses(String routeId) {
         List<Bus> buses = new ArrayList<>();
 
         URI busLocationUri = this.busLocationUriByRouteId.get(routeId);
@@ -70,24 +70,13 @@ public class BusLocationDaoImpl implements BusLocationDao {
 
         Location location = null;
         for (BusLocation busLocation : busLocations.getBody()) {
-            location = LocationTranslationUtil.translateBitMapLocationToGpsLocation(busLocation, mapTranslation);
+            location = ExternalModelsTranslationUtil.translateBitMapLocationToGpsLocation(busLocation, mapTranslation);
 
             // Uses the "o" field from NY Waterway portal as Bus#id. This might be wrong.
-            buses.add(new Bus(busLocation.getO(), location));
+            buses.add(new Bus(busLocation.getO(), location, ExternalModelsTranslationUtil.calculateBusDirection(busLocation)));
         }
 
         return buses;
     }
 
-    @Override
-    public Location getCentralGeoLocation(int routeId) {
-        URI mapTranslationUri = this.mapTranslationUriByRouteId.get(routeId);
-        if (mapTranslationUri == null) {
-            LOGGER.info("Cannot find map translation for route {}", routeId);
-            return null;
-        }
-
-        MapTranslation mapTranslation = this.restTemplate.getForObject(mapTranslationUri, MapTranslation.class);
-        return LocationTranslationUtil.getCentralGeoLocation(mapTranslation);
-    }
 }

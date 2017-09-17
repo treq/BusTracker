@@ -8,13 +8,11 @@ import java.util.Collection;
 import java.util.List;
 
 public interface BusService {
-    Collection<Bus> getBuses(int routeId);
+    Collection<Bus> getBuses(String routeId);
 
     Bus getBus(long busId);
 
-    Location getCentralGeoLocation(int routeId);
-
-    BusRoute getRouteById(int routeId);
+    BusRoute getRouteById(String routeId);
 
     List<BusRoute> getActiveBusRoutes();
 }

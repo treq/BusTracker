@@ -21,13 +21,8 @@ public class BusController {
     }
 
     @RequestMapping
-    public Collection<Bus> getBuses(@RequestParam(defaultValue = "1") Integer routeId) {
+    public Collection<Bus> getBuses(@RequestParam(defaultValue = "1") String routeId) {
         return this.busService.getBuses(routeId);
-    }
-
-    @RequestMapping("center/{routeId}")
-    public Location getCentralGeoLocation(@PathVariable Integer routeId) {
-        return this.busService.getCentralGeoLocation(routeId);
     }
 
     @RequestMapping("/{id}")
