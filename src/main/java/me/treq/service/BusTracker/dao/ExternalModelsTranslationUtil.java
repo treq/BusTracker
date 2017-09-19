@@ -43,7 +43,7 @@ public final class ExternalModelsTranslationUtil {
     }
 
     /**
-     * Return bus direction in angle (0 - 359) where 0 represents North.
+     * Return bus direction in angle (0 - 359) where 0 represents North, with an incremental of 10 degree.
      * <p>
      * {@code busLocation offset} represents the horizontal pixel offset of the direction image.
      * The direction image is consist of a row of arrows. Each arrow has a wide of 54 pixels.
