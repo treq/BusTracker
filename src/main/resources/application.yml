@@ -170,6 +170,62 @@ busRoutes:
         latitude: 40.760041
         longitude: -74.002737
   -
+    routeId: "22"
+    routeDescription: "50th Street"
+    polylineArray:
+      -
+        latitude: 40.760033
+        longitude: -74.002748
+      -
+        latitude: 40.762114
+        longitude: -74.001138
+      -
+        latitude: 40.763625
+        longitude: -73.999035
+      -
+        latitude: 40.766802
+        longitude: -73.996782
+      -
+        latitude: 40.755815
+        longitude: -73.970776
+      -
+        latitude: 40.755214
+        longitude: -73.971215
+      -
+        latitude: 40.76616
+        longitude: -73.997244
+  -
+    routeId: "34"
+    routeDescription: "50th St./57th St."
+    polylineArray:
+      -
+        latitude: 40.760049
+        longitude: -74.002683
+      -
+        latitude: 40.762
+        longitude: -74.001203
+      -
+        latitude: 40.763934
+        longitude: -73.998842
+      -
+        latitude: 40.76681
+        longitude: -73.996761
+      -
+        latitude: 40.759871
+        longitude: -73.980389
+      -
+        latitude: 40.764356
+        longitude: -73.977191
+      -
+        latitude: 40.762926
+        longitude: -73.97393
+      -
+        latitude: 40.757904
+        longitude: -73.977642
+      -
+        latitude: 40.766177
+        longitude: -73.997254
+  -
     routeId: "51"
     routeDescription: "Combo Intra"
     polylineArray: []
