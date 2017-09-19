@@ -84,10 +84,92 @@ busRoutes:
   -
     routeId: "42"
     routeDescription: "Downtown Combo"
-    polylineArray: []
+    polylineArray:
+      -
+        latitude: 40.760017
+        longitude: -74.002748
+      -
+        latitude: 40.757026
+        longitude: -74.004872
+      -
+        latitude: 40.751012
+        longitude: -73.990602
+      -
+        latitude: 40.736559
+        longitude: -74.00116
+      -
+        latitude: 40.729389
+        longitude: -74.005194
+      -
+        latitude: 40.718201
+        longitude: -74.007103
+      -
+        latitude: 40.714371
+        longitude: -74.01015
+      -
+        latitude: 40.714915
+        longitude: -74.011363
+      -
+        latitude: 40.715444
+        longitude: -74.014635
+      -
+        latitude: 40.71581
+        longitude: -74.015429
+      -
+        latitude: 40.717656
+        longitude: -74.013906
+      -
+        latitude: 40.717168
+        longitude: -74.012886
+      -
+        latitude: 40.721087
+        longitude: -74.012007
+      -
+        latitude: 40.726267
+        longitude: -74.010966
+      -
+        latitude: 40.737551
+        longitude: -74.009914
+      -
+        latitude: 40.739169
+        longitude: -74.010065
+      -
+        latitude: 40.740925
+        longitude: -74.00912
+      -
+        latitude: 40.740925
+        longitude: -74.00912
+      -
+        latitude: 40.743892
+        longitude: -74.008498
+      -
+        latitude: 40.748184
+        longitude: -74.007736
+      -
+        latitude: 40.748842
+        longitude: -74.007833
+      -
+        latitude: 40.750102
+        longitude: -74.008412
+      -
+        latitude: 40.750849
+        longitude: -74.008316
+      -
+        latitude: 40.753133
+        longitude: -74.007425
+      -
+        latitude: 40.753141
+        longitude: -74.007425
+      -
+        latitude: 40.754434
+        longitude: -74.006857
+      -
+        latitude: 40.757148
+        longitude: -74.004786
+      -
+        latitude: 40.760041
+        longitude: -74.002737
   -
     routeId: "51"
     routeDescription: "Combo Intra"
     polylineArray: []
-
-
