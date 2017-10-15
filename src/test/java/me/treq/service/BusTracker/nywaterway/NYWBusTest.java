@@ -1,10 +1,10 @@
-package me.treq.service.BusTracker.model;
+package me.treq.service.BusTracker.nywaterway;
 
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class BusTest {
+public class NYWBusTest {
     @Test
     public void currentLocation() throws Exception {
     }

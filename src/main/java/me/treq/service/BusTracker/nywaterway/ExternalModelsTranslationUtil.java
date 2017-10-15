@@ -1,8 +1,8 @@
-package me.treq.service.BusTracker.dao;
+package me.treq.service.BusTracker.nywaterway;
 
 import me.treq.service.BusTracker.model.Location;
-import me.treq.service.BusTracker.model.nywportal.BusLocation;
-import me.treq.service.BusTracker.model.nywportal.MapTranslation;
+import me.treq.service.BusTracker.nywaterway.BusLocation;
+import me.treq.service.BusTracker.nywaterway.MapTranslation;
 
 /**
  * Utility class that helps translation between website models and application models.
@@ -21,7 +21,7 @@ public final class ExternalModelsTranslationUtil {
      * @param mapTranslation the map translation
      * @return the location
      */
-    protected static Location translateBitMapLocationToGpsLocation(BusLocation busLocation, MapTranslation mapTranslation) {
+    public static Location translateBitMapLocationToGpsLocation(BusLocation busLocation, MapTranslation mapTranslation) {
         double latitude =
                 mapTranslation.getMapBoundsMaxY() - (busLocation.getY() - OFFSET) * mapTranslation.getMapConversionY();
 
@@ -37,7 +37,7 @@ public final class ExternalModelsTranslationUtil {
      * @param mapTranslation the map translation
      * @return the central geo location
      */
-    protected static Location getCentralGeoLocation(MapTranslation mapTranslation) {
+    public static Location getCentralGeoLocation(MapTranslation mapTranslation) {
         return new Location((mapTranslation.getMapBoundsMaxX() + mapTranslation.getMapBoundsMinX()) / 2,
                 (mapTranslation.getMapBoundsMaxY() + mapTranslation.getMapBoundsMinY()) / 2);
     }
@@ -53,13 +53,13 @@ public final class ExternalModelsTranslationUtil {
      * @return int a number that represents the direction of the bus - (0 - 359) where 0 represents North.
      * @throws IllegalArgumentException if {@code busLocation} doesn't provide enough of corretion information to         calculation the direction.
      */
-    protected static int calculateBusDirection(BusLocation busLocation) {
+    public static String calculateBusDirection(BusLocation busLocation) {
         int directionOffset = busLocation.getDirectionOffset();
         if (directionOffset % 54 != 0) {
             throw new IllegalArgumentException("direction Offset should be a multiple of 54");
         }
 
-        return directionOffset / 54 * 10;
+        return String.valueOf(directionOffset / 54 * 10);
     }
 
 }

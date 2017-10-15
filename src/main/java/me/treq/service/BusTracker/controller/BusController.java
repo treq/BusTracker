@@ -1,7 +1,6 @@
 package me.treq.service.BusTracker.controller;
 
 import me.treq.service.BusTracker.model.Bus;
-import me.treq.service.BusTracker.model.Location;
 import me.treq.service.BusTracker.service.BusService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,11 +21,13 @@ public class BusController {
 
     @RequestMapping
     public Collection<Bus> getBuses(@RequestParam(defaultValue = "1") String routeId) {
-        return this.busService.getBuses(routeId);
+        return this.busService.getBuses("nyWaterway", routeId);
     }
 
-    @RequestMapping("/{id}")
-    public Bus getBusById(@PathVariable int id) {
-        return this.busService.getBus(id);
+    @RequestMapping("/{system}/{routeId}")
+    public Collection<Bus> getBuses(@PathVariable String system,
+                                          @PathVariable String routeId) {
+        return this.busService.getBuses(system, routeId);
     }
+
 }

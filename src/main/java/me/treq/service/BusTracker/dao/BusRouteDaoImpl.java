@@ -2,7 +2,8 @@ package me.treq.service.BusTracker.dao;
 
 import com.google.common.collect.ImmutableMap;
 import me.treq.service.BusTracker.model.BusRoute;
-import me.treq.service.BusTracker.model.nywportal.MapTranslation;
+import me.treq.service.BusTracker.nywaterway.ExternalModelsTranslationUtil;
+import me.treq.service.BusTracker.nywaterway.MapTranslation;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

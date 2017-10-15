@@ -4,34 +4,34 @@ import me.treq.service.BusTracker.dao.BusLocationDao;
 import me.treq.service.BusTracker.dao.BusRouteDao;
 import me.treq.service.BusTracker.model.Bus;
 import me.treq.service.BusTracker.model.BusRoute;
-import me.treq.service.BusTracker.model.Location;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-@Service("busService")
+@Service
 public class BusServiceImpl implements BusService {
+    Logger log = LoggerFactory.getLogger(BusServiceImpl.class);
 
-    private final BusLocationDao busLocationDao;
+    private final Map<String, BusLocationDao> busLocationDaoByName;
 
     private final BusRouteDao busRouteDao;
 
-    public BusServiceImpl(BusLocationDao busLocationDao, BusRouteDao busRouteDao) {
-        this.busLocationDao = busLocationDao;
+    @Autowired
+    public BusServiceImpl(Map<String, BusLocationDao> busLocationDaoByName, BusRouteDao busRouteDao) {
+        this.busLocationDaoByName = busLocationDaoByName;
         this.busRouteDao = busRouteDao;
     }
 
     @Override
-    public Collection<Bus> getBuses(String routeId) {
-        return this.busLocationDao.getBuses(routeId);
-    }
-
-    @Override
-    public Bus getBus(long busId) {
-        return null;
+    public Collection<Bus> getBuses(String busSystem, String routeId) {
+        BusLocationDao dao = this.busLocationDaoByName.get(busSystem);
+        if (dao == null) {
+            log.warn("Bus system not supported {}", busSystem);
+        }
+        return dao.getBuses(routeId);
     }
 
     @Override

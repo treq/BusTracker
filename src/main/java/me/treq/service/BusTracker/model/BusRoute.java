@@ -1,7 +1,6 @@
 package me.treq.service.BusTracker.model;
 
 import lombok.Data;
-import me.treq.service.BusTracker.model.nywportal.MapTranslation;
 
 import java.util.List;
 
