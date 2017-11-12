@@ -1,6 +1,11 @@
 package me.treq.service.BusTracker.controller;
 
 import me.treq.service.BusTracker.model.Bus;
+import me.treq.service.BusTracker.model.Traceable;
+import me.treq.service.BusTracker.njtransit.NJTransitBusLocationDao;
+import me.treq.service.BusTracker.njtransit.NJTransitRouteDao;
+import me.treq.service.BusTracker.nywaterway.NYWBus;
+import me.treq.service.BusTracker.nywaterway.NYWaterBusLocationDao;
 import me.treq.service.BusTracker.service.BusService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +29,14 @@ public class BusController {
         return this.busService.getBuses("nyWaterway", routeId);
     }
 
-    @RequestMapping("/{system}/{routeId}")
-    public Collection<Bus> getBuses(@PathVariable String system,
-                                          @PathVariable String routeId) {
-        return this.busService.getBuses(system, routeId);
+    @RequestMapping("/njt/{routeId}")
+    public Collection<Bus> getNjtBuses(@PathVariable String routeId) {
+        return this.busService.getBuses(NJTransitBusLocationDao.class.getSimpleName(), routeId);
+    }
+
+    @RequestMapping("/nyw/{routeId}")
+    public Collection<Bus> getNywBuses(@PathVariable String routeId) {
+        return this.busService.getBuses(NYWaterBusLocationDao.class.getSimpleName(), routeId);
     }
 
 }

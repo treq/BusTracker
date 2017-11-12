@@ -1,12 +1,13 @@
-package me.treq.service.BusTracker.dao;
+package me.treq.service.BusTracker.nywaterway;
 
 import com.google.common.collect.ImmutableMap;
+import me.treq.service.BusTracker.dao.BusRouteDao;
 import me.treq.service.BusTracker.model.BusRoute;
-import me.treq.service.BusTracker.nywaterway.ExternalModelsTranslationUtil;
-import me.treq.service.BusTracker.nywaterway.MapTranslation;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -19,9 +20,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Repository("busRouteDao")
-public class BusRouteDaoImpl implements BusRouteDao {
-    private static final Logger LOGGER = LoggerFactory.getLogger(BusRouteDaoImpl.class);
+@Repository
+public class NYWaterwayRouteDao implements BusRouteDao {
+    private static final Logger LOGGER = LoggerFactory.getLogger(NYWaterwayRouteDao.class);
 
     private static final String QUERY_PARAM_ID = "id";
 
@@ -29,9 +30,11 @@ public class BusRouteDaoImpl implements BusRouteDao {
 
     private final RestTemplate restTemplate;
 
-    private final URI mapTranslationBaseUri;
+    private final String mapTranslationBaseUri;
 
-    public BusRouteDaoImpl(List<BusRoute> busRoutes, RestTemplate restTemplate, URI mapTranslationBaseUri) {
+    public NYWaterwayRouteDao(@Qualifier("nyWaterwayBusRoutes") List<BusRoute> busRoutes,
+                              RestTemplate restTemplate,
+                              @Value("${nyWaterwayBusMapTranslationUri}") String mapTranslationBaseUri) {
         Validate.notNull(busRoutes);
 
         this.restTemplate = Objects.requireNonNull(restTemplate);
@@ -50,7 +53,7 @@ public class BusRouteDaoImpl implements BusRouteDao {
         }
 
         URI uri =
-                UriComponentsBuilder.fromUri(this.mapTranslationBaseUri).queryParam(QUERY_PARAM_ID, routeId).build().toUri();
+                UriComponentsBuilder.fromUriString(this.mapTranslationBaseUri).queryParam(QUERY_PARAM_ID, routeId).build().toUri();
 
         MapTranslation mapTranslation = null;
         try {

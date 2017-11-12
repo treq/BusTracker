@@ -1,19 +1,14 @@
 package me.treq.service.BusTracker;
 
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import me.treq.service.BusTracker.dao.BusLocationDao;
-import me.treq.service.BusTracker.dao.BusRouteDao;
-import me.treq.service.BusTracker.dao.BusRouteDaoImpl;
 import me.treq.service.BusTracker.model.BusRoute;
 import me.treq.service.BusTracker.model.config.ApplicationConfig;
-import me.treq.service.BusTracker.njtransit.NJTransitBusLocationDao;
+import me.treq.service.BusTracker.nywaterway.NYWaterBusLocationDao;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.TrustStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,10 +17,8 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.net.ssl.SSLContext;
-import java.net.URI;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -74,51 +67,23 @@ public class BusTrackerApplication {
 
 		RestTemplate restTemplate = new RestTemplate(requestFactory);
         restTemplate.setMessageConverters(Arrays.asList(
-                new MappingJackson2XmlHttpMessageConverter(new XmlMapper()),
+                new MappingJackson2XmlHttpMessageConverter(),
                 new MappingJackson2HttpMessageConverter()));
 		return restTemplate;
 	}
 
-	@Bean(name = "nyWaterwayBusLocation")
-	public URI nyWaterwayBusLocationBaseUri(ApplicationConfig appConfig) {
-		return UriComponentsBuilder
-				.fromUriString(appConfig.getBusLocationUri())
-				.build().toUri();
-	}
-
-	@Bean(name = "nyWaterwayMapTranslation")
-	public URI nyWaterwayMapTranslationBaseUri(ApplicationConfig appConfig) {
-		return  UriComponentsBuilder
-				.fromUriString(appConfig.getMapTranslationUri())
-				.build().toUri();
-	}
-
-	@Bean(name = "nyWaterwayRoutes")
-	public List<String> nyWaterwayRoutes(ApplicationConfig appConfig) {
-		return appConfig.getBusRoutes().stream().map(busRoute -> busRoute.getRouteId()).collect(Collectors.toList());
-	}
-
-	@Bean(name = "njTransit")
-	public BusLocationDao njTransitBusLocationDao(RestTemplate restTemplate, ApplicationConfig appConfig) {
-		String busLocationBase = "http://mybusnow.njtransit.com/bustime/map/getBusesForRoute.jsp?route={route}";
-
-		List<BusRoute> busRoutes = appConfig.getBusRoutes();
-
-		LOGGER.info("Initialized bus routes: {}", busRoutes);
-
-		return new NJTransitBusLocationDao(restTemplate, busLocationBase);
-	}
-
 	@Bean
-    public BusRouteDao busRouteDao(ApplicationConfig applicationConfig, RestTemplate restTemplate) {
-        URI mapTranslationBaseUri = UriComponentsBuilder
-                .fromUriString(applicationConfig.getMapTranslationUri())
-                .build().toUri();
-	    return new BusRouteDaoImpl(applicationConfig.getBusRoutes(), restTemplate, mapTranslationBaseUri);
+    List<BusRoute> nyWaterwayBusRoutes(ApplicationConfig applicationConfig) {
+	    return applicationConfig.getBusRoutes();
     }
 
     @Bean
-	public CommandLineRunner run(@Qualifier("nyWaterway") BusLocationDao busLocationDao, ApplicationConfig appConfig) throws Exception {
+	List<String> nyWaterwayBusRouteIds(ApplicationConfig applicationConfig) {
+		return applicationConfig.getBusRoutes().stream().map(busRoute -> busRoute.getRouteId()).collect(Collectors.toList());
+	}
+
+    @Bean
+	public CommandLineRunner run(NYWaterBusLocationDao busLocationDao, ApplicationConfig appConfig) throws Exception {
 		return args -> {
 			System.out.println("Health check: " + busLocationDao.getBuses("1"));
 		};

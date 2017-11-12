@@ -9,7 +9,7 @@ import java.util.List;
 public interface BusService {
     Collection<Bus> getBuses(String busSystem, String routeId);
 
-    BusRoute getRouteById(String routeId);
+    BusRoute getRouteById(String busSystem, String routeId);
 
-    List<BusRoute> getActiveBusRoutes();
+    List<BusRoute> getActiveBusRoutes(String busSystem);
 }

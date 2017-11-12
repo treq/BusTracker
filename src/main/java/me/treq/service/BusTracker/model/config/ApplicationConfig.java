@@ -13,7 +13,5 @@ import java.util.List;
 @Configuration
 @ConfigurationProperties
 public class ApplicationConfig {
-    private String mapTranslationUri;
-    private String busLocationUri;
     private List<BusRoute> busRoutes;
 }

@@ -8,15 +8,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.annotation.Resource;
 import java.net.URI;
 import java.util.*;
 
-@Repository("nyWaterway")
+@Repository
 public class NYWaterBusLocationDao implements BusLocationDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(NYWaterBusLocationDao.class);
 
@@ -27,9 +29,9 @@ public class NYWaterBusLocationDao implements BusLocationDao {
     private final Map<String, URI> mapTranslationUriByRouteId;
 
     public NYWaterBusLocationDao(RestTemplate restTemplate,
-                                 @Qualifier("nyWaterwayBusLocation") URI busLocationBaseUri,
-                                 @Qualifier("nyWaterwayMapTranslation") URI mapTranslationBaseUri,
-                                 @Qualifier("nyWaterwayRoutes") Collection<String> routeIds) {
+                                 @Value("${nyWaterwayBusLocationUri}") String busLocationBaseUri,
+                                 @Value("${nyWaterwayBusMapTranslationUri}") String mapTranslationBaseUri,
+                                 @Qualifier("nyWaterwayBusRouteIds") Collection<String> routeIds) {
         this.restTemplate = restTemplate;
 
         Map<String, URI> busLocationUriByRouteId = new HashMap<>();
@@ -37,9 +39,9 @@ public class NYWaterBusLocationDao implements BusLocationDao {
 
         for (String routeId : routeIds) {
             busLocationUriByRouteId.put(routeId,
-                    UriComponentsBuilder.fromUri(busLocationBaseUri).queryParam("id", routeId).build().toUri());
+                    UriComponentsBuilder.fromUriString(busLocationBaseUri).queryParam("id", routeId).build().toUri());
             mapTranslationUriByRouteId.put(routeId,
-                UriComponentsBuilder.fromUri(mapTranslationBaseUri).queryParam("id", routeId).build().toUri());
+                UriComponentsBuilder.fromUriString(mapTranslationBaseUri).queryParam("id", routeId).build().toUri());
         }
 
         this.busLocationUriByRouteId = ImmutableMap.copyOf(busLocationUriByRouteId);

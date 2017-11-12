@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 @Service
@@ -17,12 +18,13 @@ public class BusServiceImpl implements BusService {
 
     private final Map<String, BusLocationDao> busLocationDaoByName;
 
-    private final BusRouteDao busRouteDao;
+    private final Map<String, BusRouteDao> busRouteDaoByName;
 
-    @Autowired
-    public BusServiceImpl(Map<String, BusLocationDao> busLocationDaoByName, BusRouteDao busRouteDao) {
+    public BusServiceImpl(Map<String, BusLocationDao> busLocationDaoByName, Map<String, BusRouteDao> busRouteDaoByName) {
         this.busLocationDaoByName = busLocationDaoByName;
-        this.busRouteDao = busRouteDao;
+        this.busRouteDaoByName = busRouteDaoByName;
+
+        log.info("BusServiceImpl is initialized: {} {}", this.busLocationDaoByName, this.busRouteDaoByName);
     }
 
     @Override
@@ -35,17 +37,17 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
-    public BusRoute getRouteById(String routeId) {
-        return this.busRouteDao.getRouteById(routeId);
+    public BusRoute getRouteById(String system, String routeId) {
+        return this.busRouteDaoByName.get(system).getRouteById(routeId);
     }
 
     @Override
-    public List<BusRoute> getActiveBusRoutes() {
-        Set<String> allRouteIds = this.busRouteDao.getAvailableRoutes();
+    public List<BusRoute> getActiveBusRoutes(String system) {
+        Set<String> allRouteIds = this.busRouteDaoByName.get(system).getAvailableRoutes();
         List<BusRoute> activeRoutes = new ArrayList<>();
 
         for (String routeId : allRouteIds) {
-            BusRoute busRoute = this.busRouteDao.getRouteById(routeId);
+            BusRoute busRoute = this.busRouteDaoByName.get(system).getRouteById(routeId);
             if (busRoute != null) {
                 activeRoutes.add(busRoute);
             }
