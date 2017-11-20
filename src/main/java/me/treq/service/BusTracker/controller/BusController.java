@@ -1,18 +1,15 @@
 package me.treq.service.BusTracker.controller;
 
-import me.treq.service.BusTracker.model.Bus;
-import me.treq.service.BusTracker.model.Traceable;
-import me.treq.service.BusTracker.njtransit.NJTransitBusLocationDao;
-import me.treq.service.BusTracker.njtransit.NJTransitRouteDao;
-import me.treq.service.BusTracker.nywaterway.NYWBus;
-import me.treq.service.BusTracker.nywaterway.NYWaterBusLocationDao;
-import me.treq.service.BusTracker.service.BusService;
+import java.util.Collection;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
+import me.treq.service.BusTracker.model.Bus;
+import me.treq.service.BusTracker.njtransit.NJTransitBusLocationDao;
+import me.treq.service.BusTracker.nywaterway.NYWaterBusLocationDao;
+import me.treq.service.BusTracker.service.BusService;
 
 @RestController()
 @RequestMapping("/buses")
@@ -24,19 +21,16 @@ public class BusController {
         this.busService = busService;
     }
 
-    @RequestMapping
-    public Collection<Bus> getBuses(@RequestParam(defaultValue = "1") String routeId) {
-        return this.busService.getBuses("nyWaterway", routeId);
-    }
-
-    @RequestMapping("/njt/{routeId}")
-    public Collection<Bus> getNjtBuses(@PathVariable String routeId) {
-        return this.busService.getBuses(NJTransitBusLocationDao.class.getSimpleName(), routeId);
-    }
-
-    @RequestMapping("/nyw/{routeId}")
-    public Collection<Bus> getNywBuses(@PathVariable String routeId) {
-        return this.busService.getBuses(NYWaterBusLocationDao.class.getSimpleName(), routeId);
+    @RequestMapping("/{busSystem}/{routeId}")
+    public Collection<Bus> getNjtBuses(@PathVariable String busSystem, @PathVariable String routeId) {
+        switch (busSystem) {
+            case "njt":
+                return this.busService.getBuses(NJTransitBusLocationDao.class.getSimpleName(), routeId);
+            case "nyw":
+                return this.busService.getBuses(NYWaterBusLocationDao.class.getSimpleName(), routeId);
+            default:
+                throw new IllegalArgumentException("bus system is not supported: " + busSystem);
+        }
     }
 
 }

@@ -1,14 +1,15 @@
 package me.treq.service.BusTracker.controller;
 
-import me.treq.service.BusTracker.model.BusRoute;
-import me.treq.service.BusTracker.njtransit.NJTransitRouteDao;
-import me.treq.service.BusTracker.nywaterway.NYWaterwayRouteDao;
-import me.treq.service.BusTracker.service.BusService;
+import java.util.List;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import me.treq.service.BusTracker.model.BusRoute;
+import me.treq.service.BusTracker.njtransit.NJTransitRouteDao;
+import me.treq.service.BusTracker.nywaterway.NYWaterwayRouteDao;
+import me.treq.service.BusTracker.service.BusService;
 
 @RestController()
 @RequestMapping("/routes")
@@ -24,24 +25,29 @@ public class BusRouteController {
         return this.busService.getActiveBusRoutes(system);
     }
 
-    @RequestMapping("/njt")
-    public List<BusRoute> getNjtActiveBusRoutes() {
-        return this.busService.getActiveBusRoutes(NJTransitRouteDao.class.getSimpleName());
+    @RequestMapping("/{busSystem}")
+    public List<BusRoute> getNjtActiveBusRoutes(@PathVariable String busSystem) {
+        switch (busSystem) {
+            case "njt":
+                return this.busService.getActiveBusRoutes(NJTransitRouteDao.class.getSimpleName());
+            case "nyw":
+                return this.busService.getActiveBusRoutes(NYWaterwayRouteDao.class.getSimpleName());
+            default:
+                throw new IllegalArgumentException("bus system is not supported: " + busSystem);
+        }
     }
 
-    @RequestMapping("/nyw")
-    public List<BusRoute> getNywActiveBusRoutes() {
-        return this.busService.getActiveBusRoutes(NYWaterwayRouteDao.class.getSimpleName());
-    }
+    @RequestMapping("/{busSystem}/{routeId}")
+    public BusRoute getNjtRouteById(@PathVariable String busSystem, @PathVariable String routeId) {
+        switch (busSystem) {
+            case "njt":
+                return this.busService.getRouteById(NJTransitRouteDao.class.getSimpleName(), routeId);
+            case "nyw":
+                return this.busService.getRouteById(NYWaterwayRouteDao.class.getSimpleName(), routeId);
+            default:
+                throw new IllegalArgumentException("bus system is not supported: " + busSystem);
 
-    @RequestMapping("/njt/{routeId}")
-    public BusRoute getNjtRouteById(@PathVariable String routeId) {
-        return this.busService.getRouteById(NJTransitRouteDao.class.getSimpleName(), routeId);
-    }
-
-    @RequestMapping("/nyw/{routeId}")
-    public BusRoute getNywRouteById(@PathVariable String routeId) {
-        return this.busService.getRouteById(NYWaterwayRouteDao.class.getSimpleName(), routeId);
+        }
     }
 
 }
