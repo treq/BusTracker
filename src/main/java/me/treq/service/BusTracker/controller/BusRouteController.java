@@ -12,7 +12,7 @@ import me.treq.service.BusTracker.nywaterway.NYWaterwayRouteDao;
 import me.treq.service.BusTracker.service.BusService;
 
 @RestController()
-@RequestMapping("/routes")
+@RequestMapping("/v1/routes")
 public class BusRouteController {
 
     private final BusService busService;
