@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.google.common.collect.ImmutableSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,6 +23,8 @@ import me.treq.service.BusTracker.model.Location;
 @Qualifier("njt")
 public class NJTransitRouteDao implements BusRouteDao {
     Logger log = LoggerFactory.getLogger(NJTransitRouteDao.class);
+
+    Set<String> DUMMY_ROUTES = ImmutableSet.of("158", "159");
 
     private final RestTemplate restTemplate;
 
@@ -73,6 +76,7 @@ public class NJTransitRouteDao implements BusRouteDao {
 
     @Override
     public Set<String> getAvailableRoutes() {
-        throw new UnsupportedOperationException("getAvailableRoutes is not supported for NJT");
+        // TODO temporarily return same dummy value
+        return DUMMY_ROUTES;
     }
 }

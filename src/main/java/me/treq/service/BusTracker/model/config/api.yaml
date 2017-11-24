@@ -56,10 +56,10 @@ paths:
     get:
       tags:
       - routes
-      summary: get all routes from all routes of a bus system
+      summary: get all active routes from all routes of a bus system
       operationId: getRoutes
       description: |
-        Returns all routes.
+        Returns all active routes.
       produces:
       - application/json
       parameters:
@@ -102,9 +102,7 @@ paths:
         200:
           description: A single route object
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/BusRoute'
+            $ref: '#/definitions/BusRoute'
         404:
           description: Result not found due to invalid input
 definitions:
@@ -127,14 +125,16 @@ definitions:
         example: "NNS"
   Location:
     required:
-    - longtitude
+    - longitude
     - latitude
     properties:
-      longtitude:
+      longitude:
         type: number
+        format: double
         example: 71.000000
       latitude:
         type: number
+        format: double
         example: -41.654788
   BusRoute:
     required:
@@ -158,7 +158,9 @@ definitions:
         $ref: '#/definitions/Location'
       routeSpanLatitude:
         type: number
+        format: double
         example: 71.000000
       routeSpanLongitude:
         type: number
+        format: double
         example: -41.654788
