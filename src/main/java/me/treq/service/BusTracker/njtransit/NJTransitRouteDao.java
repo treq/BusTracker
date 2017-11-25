@@ -1,12 +1,12 @@
 package me.treq.service.BusTracker.njtransit;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.google.common.collect.ImmutableSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,7 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
+import com.google.common.collect.ImmutableSet;
+
 import me.treq.service.BusTracker.dao.BusRouteDao;
+import me.treq.service.BusTracker.model.BusLine;
 import me.treq.service.BusTracker.model.BusRoute;
 import me.treq.service.BusTracker.model.Location;
 
@@ -50,8 +53,6 @@ public class NJTransitRouteDao implements BusRouteDao {
 
         NJBusRoute njBusRoute = route.getBody();
 
-        System.out.println("Got route: " + njBusRoute);
-
         if (njBusRoute == null) {
             return null;
         }
@@ -64,12 +65,23 @@ public class NJTransitRouteDao implements BusRouteDao {
             return null;
         }
 
-        List<NJBusRoute.Location> locations =
-                njBusRoute.getPas().getPaList().stream().map(pa -> pa.getLocations()).flatMap(locs -> locs.stream()).collect(Collectors.toList());
-        if (locations != null) {
-            List<Location> locs = locations.stream().map(loc -> new Location(loc.getLon(), loc.getLat())).collect(Collectors.toList());
-            busRoute.setPolylineArray(locs);
+        List<NJBusRoute.PA> paList = njBusRoute.getPas().getPaList();
+
+        List<BusLine> busLines = new ArrayList<>();
+        if (paList != null && !paList.isEmpty()) {
+            for (NJBusRoute.PA pa : paList) {
+                BusLine busLine = new BusLine();
+                busLine.setId(pa.getId());
+                busLine.setDescription(pa.getDescription());
+
+                if (pa.getLocations() != null) {
+                    busLine.setPolyline(pa.getLocations().stream().map(loc -> new Location(loc.getLon(), loc.getLat())).collect(Collectors.toList()));
+                }
+                busLines.add(busLine);
+            }
         }
+
+        busRoute.setBusLines(busLines);
 
         return busRoute;
     }

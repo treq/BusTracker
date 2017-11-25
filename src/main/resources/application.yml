@@ -8,226 +8,246 @@ busRoutes:
   -
     routeId: "1"
     routeDescription:  "34 st."
-    polylineArray:
+    busLines:
       -
-        latitude: 40.760001
-        longitude: -74.002769
-      -
-        latitude: 40.75701
-        longitude: -74.004872
-      -
-        latitude: 40.745729
-        longitude: -73.978157
-      -
-        latitude: 40.745062
-        longitude: -73.978629
-      -
-        latitude: 40.745761
-        longitude: -73.98026
-      -
-        latitude: 40.746412
-        longitude: -73.979745
+        id: "1"
+        description: "bus line"
+        polyline:
+          -
+            latitude: 40.760001
+            longitude: -74.002769
+          -
+            latitude: 40.75701
+            longitude: -74.004872
+          -
+            latitude: 40.745729
+            longitude: -73.978157
+          -
+            latitude: 40.745062
+            longitude: -73.978629
+          -
+            latitude: 40.745761
+            longitude: -73.98026
+          -
+            latitude: 40.746412
+            longitude: -73.979745
   -
     routeId: "36"
     routeDescription: "34th St. / 42nd St."
-    polylineArray:
+    busLines:
       -
-        latitude: 40.760017
-        longitude: -74.002748
-      -
-        latitude: 40.757026
-        longitude: -74.004915
-      -
-        latitude: 40.748411
-        longitude: -73.984573
-      -
-        latitude: 40.753483
-        longitude: -73.980861
-      -
-        latitude: 40.762032
-        longitude: -74.001267
-      -
-        latitude: 40.760147
-        longitude: -74.002662
+        id: "1"
+        description: "bus line"
+        polyline:
+          -
+            latitude: 40.760017
+            longitude: -74.002748
+          -
+            latitude: 40.757026
+            longitude: -74.004915
+          -
+            latitude: 40.748411
+            longitude: -73.984573
+          -
+            latitude: 40.753483
+            longitude: -73.980861
+          -
+            latitude: 40.762032
+            longitude: -74.001267
+          -
+            latitude: 40.760147
+            longitude: -74.002662
   -
     routeId: "33"
     routeDescription: "44th St. & 57th St."
-    polylineArray:
+    busLines:
       -
-        latitude: 40.760001
-        longitude: -74.00278
-      -
-        latitude: 40.761959
-        longitude: -74.001299
-      -
-        latitude: 40.763487
-        longitude: -73.99925
-      -
-        latitude: 40.76395
-        longitude: -73.998832
-      -
-        latitude: 40.76616
-        longitude: -73.997222
-      -
-        latitude: 40.757904
-        longitude: -73.977631
-      -
-        latitude: 40.762991
-        longitude: -73.973941
-      -
-        latitude: 40.766745
-        longitude: -73.982888
-      -
-        latitude: 40.758546
-        longitude: -73.988843
-      -
-        latitude: 40.763113
-        longitude: -73.999711
+        id: "1"
+        description: "bus line"
+        polyline:
+          -
+            latitude: 40.760001
+            longitude: -74.00278
+          -
+            latitude: 40.761959
+            longitude: -74.001299
+          -
+            latitude: 40.763487
+            longitude: -73.99925
+          -
+            latitude: 40.76395
+            longitude: -73.998832
+          -
+            latitude: 40.76616
+            longitude: -73.997222
+          -
+            latitude: 40.757904
+            longitude: -73.977631
+          -
+            latitude: 40.762991
+            longitude: -73.973941
+          -
+            latitude: 40.766745
+            longitude: -73.982888
+          -
+            latitude: 40.758546
+            longitude: -73.988843
+          -
+            latitude: 40.763113
+            longitude: -73.999711
   -
     routeId: "42"
     routeDescription: "Downtown Combo"
-    polylineArray:
+    busLines:
       -
-        latitude: 40.760017
-        longitude: -74.002748
-      -
-        latitude: 40.757026
-        longitude: -74.004872
-      -
-        latitude: 40.751012
-        longitude: -73.990602
-      -
-        latitude: 40.736559
-        longitude: -74.00116
-      -
-        latitude: 40.729389
-        longitude: -74.005194
-      -
-        latitude: 40.718201
-        longitude: -74.007103
-      -
-        latitude: 40.714371
-        longitude: -74.01015
-      -
-        latitude: 40.714915
-        longitude: -74.011363
-      -
-        latitude: 40.715444
-        longitude: -74.014635
-      -
-        latitude: 40.71581
-        longitude: -74.015429
-      -
-        latitude: 40.717656
-        longitude: -74.013906
-      -
-        latitude: 40.717168
-        longitude: -74.012886
-      -
-        latitude: 40.721087
-        longitude: -74.012007
-      -
-        latitude: 40.726267
-        longitude: -74.010966
-      -
-        latitude: 40.737551
-        longitude: -74.009914
-      -
-        latitude: 40.739169
-        longitude: -74.010065
-      -
-        latitude: 40.740925
-        longitude: -74.00912
-      -
-        latitude: 40.740925
-        longitude: -74.00912
-      -
-        latitude: 40.743892
-        longitude: -74.008498
-      -
-        latitude: 40.748184
-        longitude: -74.007736
-      -
-        latitude: 40.748842
-        longitude: -74.007833
-      -
-        latitude: 40.750102
-        longitude: -74.008412
-      -
-        latitude: 40.750849
-        longitude: -74.008316
-      -
-        latitude: 40.753133
-        longitude: -74.007425
-      -
-        latitude: 40.753141
-        longitude: -74.007425
-      -
-        latitude: 40.754434
-        longitude: -74.006857
-      -
-        latitude: 40.757148
-        longitude: -74.004786
-      -
-        latitude: 40.760041
-        longitude: -74.002737
+        id: "1"
+        description: "bus line"
+        polyline:
+          -
+            latitude: 40.760017
+            longitude: -74.002748
+          -
+            latitude: 40.757026
+            longitude: -74.004872
+          -
+            latitude: 40.751012
+            longitude: -73.990602
+          -
+            latitude: 40.736559
+            longitude: -74.00116
+          -
+            latitude: 40.729389
+            longitude: -74.005194
+          -
+            latitude: 40.718201
+            longitude: -74.007103
+          -
+            latitude: 40.714371
+            longitude: -74.01015
+          -
+            latitude: 40.714915
+            longitude: -74.011363
+          -
+            latitude: 40.715444
+            longitude: -74.014635
+          -
+            latitude: 40.71581
+            longitude: -74.015429
+          -
+            latitude: 40.717656
+            longitude: -74.013906
+          -
+            latitude: 40.717168
+            longitude: -74.012886
+          -
+            latitude: 40.721087
+            longitude: -74.012007
+          -
+            latitude: 40.726267
+            longitude: -74.010966
+          -
+            latitude: 40.737551
+            longitude: -74.009914
+          -
+            latitude: 40.739169
+            longitude: -74.010065
+          -
+            latitude: 40.740925
+            longitude: -74.00912
+          -
+            latitude: 40.740925
+            longitude: -74.00912
+          -
+            latitude: 40.743892
+            longitude: -74.008498
+          -
+            latitude: 40.748184
+            longitude: -74.007736
+          -
+            latitude: 40.748842
+            longitude: -74.007833
+          -
+            latitude: 40.750102
+            longitude: -74.008412
+          -
+            latitude: 40.750849
+            longitude: -74.008316
+          -
+            latitude: 40.753133
+            longitude: -74.007425
+          -
+            latitude: 40.753141
+            longitude: -74.007425
+          -
+            latitude: 40.754434
+            longitude: -74.006857
+          -
+            latitude: 40.757148
+            longitude: -74.004786
+          -
+            latitude: 40.760041
+            longitude: -74.002737
   -
     routeId: "22"
     routeDescription: "50th Street"
-    polylineArray:
+    busLines:
       -
-        latitude: 40.760033
-        longitude: -74.002748
-      -
-        latitude: 40.762114
-        longitude: -74.001138
-      -
-        latitude: 40.763625
-        longitude: -73.999035
-      -
-        latitude: 40.766802
-        longitude: -73.996782
-      -
-        latitude: 40.755815
-        longitude: -73.970776
-      -
-        latitude: 40.755214
-        longitude: -73.971215
-      -
-        latitude: 40.76616
-        longitude: -73.997244
+        id: "1"
+        description: "bus line"
+        polyline:
+          -
+            latitude: 40.760033
+            longitude: -74.002748
+          -
+            latitude: 40.762114
+            longitude: -74.001138
+          -
+            latitude: 40.763625
+            longitude: -73.999035
+          -
+            latitude: 40.766802
+            longitude: -73.996782
+          -
+            latitude: 40.755815
+            longitude: -73.970776
+          -
+            latitude: 40.755214
+            longitude: -73.971215
+          -
+            latitude: 40.76616
+            longitude: -73.997244
   -
     routeId: "34"
     routeDescription: "50th St./57th St."
-    polylineArray:
+    busLines:
       -
-        latitude: 40.760049
-        longitude: -74.002683
-      -
-        latitude: 40.762
-        longitude: -74.001203
-      -
-        latitude: 40.763934
-        longitude: -73.998842
-      -
-        latitude: 40.76681
-        longitude: -73.996761
-      -
-        latitude: 40.759871
-        longitude: -73.980389
-      -
-        latitude: 40.764356
-        longitude: -73.977191
-      -
-        latitude: 40.762926
-        longitude: -73.97393
-      -
-        latitude: 40.757904
-        longitude: -73.977642
-      -
-        latitude: 40.766177
-        longitude: -73.997254
-  -
-    routeId: "51"
-    routeDescription: "Combo Intra"
-    polylineArray: []
+        id: "1"
+        description: "bus line"
+        polyline:
+          -
+            latitude: 40.760049
+            longitude: -74.002683
+          -
+            latitude: 40.762
+            longitude: -74.001203
+          -
+            latitude: 40.763934
+            longitude: -73.998842
+          -
+            latitude: 40.76681
+            longitude: -73.996761
+          -
+            latitude: 40.759871
+            longitude: -73.980389
+          -
+            latitude: 40.764356
+            longitude: -73.977191
+          -
+            latitude: 40.762926
+            longitude: -73.97393
+          -
+            latitude: 40.757904
+            longitude: -73.977642
+          -
+            latitude: 40.766177
+            longitude: -73.997254

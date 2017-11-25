@@ -1,8 +1,8 @@
 package me.treq.service.BusTracker.model;
 
-import lombok.Data;
-
 import java.util.List;
+
+import lombok.Data;
 
 /**
  * Provides bus route information. The data are populated from application.yml.
@@ -14,7 +14,7 @@ public class BusRoute {
 
     private String routeDescription;
 
-    private List<Location> polylineArray;
+    private List<BusLine> busLines;
 
     // This is a concept from the external portal which defines the map view boundary
     // and ratios of how bus point and bus geolocation are converted.

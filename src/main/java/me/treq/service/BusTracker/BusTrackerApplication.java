@@ -1,8 +1,15 @@
 package me.treq.service.BusTracker;
 
-import me.treq.service.BusTracker.model.BusRoute;
-import me.treq.service.BusTracker.model.config.ApplicationConfig;
-import me.treq.service.BusTracker.nywaterway.NYWaterBusLocationDao;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.net.ssl.SSLContext;
+
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -18,14 +25,9 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import javax.net.ssl.SSLContext;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.X509Certificate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import me.treq.service.BusTracker.model.BusRoute;
+import me.treq.service.BusTracker.model.config.ApplicationConfig;
+import me.treq.service.BusTracker.njtransit.NJTransitRouteDao;
 
 @SpringBootApplication
 public class BusTrackerApplication {
@@ -83,9 +85,9 @@ public class BusTrackerApplication {
 	}
 
     @Bean
-	public CommandLineRunner run(NYWaterBusLocationDao busLocationDao, ApplicationConfig appConfig) throws Exception {
+	public CommandLineRunner run(NJTransitRouteDao njTransitRouteDao, ApplicationConfig appConfig) throws Exception {
 		return args -> {
-			System.out.println("Health check: " + busLocationDao.getBuses("1"));
+			System.out.println("Health check: " + njTransitRouteDao.getRouteById("158"));
 		};
 	}
 
