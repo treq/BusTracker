@@ -44,6 +44,7 @@ public class BusServiceImpl implements BusService {
     @Override
     public List<BusRoute> getActiveBusRoutes(String system) {
         Set<String> allRouteIds = this.busRouteDaoByName.get(system).getAvailableRoutes();
+
         List<BusRoute> activeRoutes = new ArrayList<>();
 
         for (String routeId : allRouteIds) {

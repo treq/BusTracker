@@ -2,6 +2,7 @@ package me.treq.service.BusTracker.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +13,7 @@ import me.treq.service.BusTracker.nywaterway.NYWaterwayRouteDao;
 import me.treq.service.BusTracker.service.BusService;
 
 @RestController()
-@RequestMapping("/v1/routes")
+@RequestMapping(value = "/v1/routes", produces = "application/json")
 public class BusRouteController {
 
     private final BusService busService;
@@ -25,8 +26,8 @@ public class BusRouteController {
         return this.busService.getActiveBusRoutes(system);
     }
 
-    @RequestMapping("/{busSystem}")
-    public List<BusRoute> getNjtActiveBusRoutes(@PathVariable String busSystem) {
+    @GetMapping(value = "/{busSystem}")
+    public List<BusRoute> getBusRoutes(@PathVariable String busSystem) {
         switch (busSystem) {
             case "njt":
                 return this.busService.getActiveBusRoutes(NJTransitRouteDao.class.getSimpleName());
@@ -37,8 +38,8 @@ public class BusRouteController {
         }
     }
 
-    @RequestMapping("/{busSystem}/{routeId}")
-    public BusRoute getNjtRouteById(@PathVariable String busSystem, @PathVariable String routeId) {
+    @GetMapping("/{busSystem}/{routeId}")
+    public BusRoute getBusRouteById(@PathVariable String busSystem, @PathVariable String routeId) {
         switch (busSystem) {
             case "njt":
                 return this.busService.getRouteById(NJTransitRouteDao.class.getSimpleName(), routeId);

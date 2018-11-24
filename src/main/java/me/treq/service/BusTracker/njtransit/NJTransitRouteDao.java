@@ -1,12 +1,10 @@
 package me.treq.service.BusTracker.njtransit;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-
+import com.google.common.collect.ImmutableSet;
+import me.treq.service.BusTracker.dao.BusRouteDao;
+import me.treq.service.BusTracker.model.BusLine;
+import me.treq.service.BusTracker.model.BusRoute;
+import me.treq.service.BusTracker.model.Location;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,12 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
-import com.google.common.collect.ImmutableSet;
-
-import me.treq.service.BusTracker.dao.BusRouteDao;
-import me.treq.service.BusTracker.model.BusLine;
-import me.treq.service.BusTracker.model.BusRoute;
-import me.treq.service.BusTracker.model.Location;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 @Qualifier("njt")
