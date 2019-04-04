@@ -35,7 +35,7 @@ public class NJTransitBusLocationDao implements BusLocationDao {
         List<NJBus> result = buses.getBody().getBuses();
         if (result != null) {
             return result.stream()
-                         .map(bus -> new Bus(bus.getId(), new Location(bus.getLon(), bus.getLat()), bus.getDirection()))
+                         .map(bus -> new Bus(bus.getId(), new Location(bus.getLon(), bus.getLat()), bus.getDirection(), bus.getDest()))
                          .collect(Collectors.toList());
         }
 

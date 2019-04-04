@@ -25,4 +25,6 @@ public class BusRoute {
 
     // The recommanded longitude delta in order to display the route
     private double routeSpanLongitude;
+
+    private Location center;
 }

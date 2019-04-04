@@ -76,7 +76,7 @@ public class NYWaterBusLocationDao implements BusLocationDao {
             location = ExternalModelsTranslationUtil.translateBitMapLocationToGpsLocation(busLocation, mapTranslation);
 
             // Uses the "o" field from NY Waterway portal as NYWBus#id. This might be wrong.
-            NYWBuses.add(new Bus(String.valueOf(busLocation.getO()), location, ExternalModelsTranslationUtil.calculateBusDirection(busLocation)));
+            NYWBuses.add(new Bus(String.valueOf(busLocation.getO()), location, ExternalModelsTranslationUtil.calculateBusDirection(busLocation), ""));
         }
 
         return NYWBuses;

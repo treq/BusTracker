@@ -27,4 +27,7 @@ public class NJBus {
     @JacksonXmlProperty(localName = "id")
     private String id;
 
+    @JacksonXmlProperty(localName = "dd")
+    private String dest;
+
 }

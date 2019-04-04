@@ -28,6 +28,9 @@ import org.springframework.web.client.RestTemplate;
 import me.treq.service.BusTracker.model.BusRoute;
 import me.treq.service.BusTracker.model.config.ApplicationConfig;
 import me.treq.service.BusTracker.njtransit.NJTransitRouteDao;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
 public class BusTrackerApplication {
@@ -88,6 +91,17 @@ public class BusTrackerApplication {
 	public CommandLineRunner run(NJTransitRouteDao njTransitRouteDao, ApplicationConfig appConfig) throws Exception {
 		return args -> {
 			System.out.println("Health check: " + njTransitRouteDao.getRouteById("158"));
+		};
+	}
+
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurerAdapter() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**").allowedOrigins("*").allowCredentials(true)
+						.allowedMethods("GET", "POST", "PUT", "OPTIONS");
+			}
 		};
 	}
 

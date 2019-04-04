@@ -10,6 +10,8 @@ public class Bus implements Traceable {
 
     private final String direction;
 
+    private final String dest;
+
     @Override
     public String direction() {
         return this.direction;

@@ -47,6 +47,17 @@ public class NJBusRoute {
     }
 
     @Data
+    @JacksonXmlRootElement(localName = "bs")
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class Stop {
+        @JacksonXmlProperty(localName = "id")
+        long id;
+
+        @JacksonXmlProperty(localName = "st")
+        String stopName;
+    }
+
+    @Data
     @JacksonXmlRootElement(localName = "pt")
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Location {
@@ -55,6 +66,9 @@ public class NJBusRoute {
 
         @JacksonXmlProperty(localName = "lon")
         double lon;
+
+        @JacksonXmlProperty(localName = "bs")
+        Stop stop;
     }
 
 }
