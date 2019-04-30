@@ -6,19 +6,14 @@ import me.treq.service.BusTracker.model.Bus;
 import me.treq.service.BusTracker.model.Location;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.annotation.Resource;
 import java.net.URI;
 import java.util.*;
 
-@Repository
 public class NYWaterBusLocationDao implements BusLocationDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(NYWaterBusLocationDao.class);
 
@@ -29,9 +24,9 @@ public class NYWaterBusLocationDao implements BusLocationDao {
     private final Map<String, URI> mapTranslationUriByRouteId;
 
     public NYWaterBusLocationDao(RestTemplate restTemplate,
-                                 @Value("${nyWaterwayBusLocationUri}") String busLocationBaseUri,
-                                 @Value("${nyWaterwayBusMapTranslationUri}") String mapTranslationBaseUri,
-                                 @Qualifier("nyWaterwayBusRouteIds") Collection<String> routeIds) {
+                                 String busLocationBaseUri,
+                                 String mapTranslationBaseUri,
+                                 Collection<String> routeIds) {
         this.restTemplate = restTemplate;
 
         Map<String, URI> busLocationUriByRouteId = new HashMap<>();

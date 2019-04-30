@@ -8,8 +8,6 @@ import me.treq.service.BusTracker.model.BusStop;
 import me.treq.service.BusTracker.model.Location;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
@@ -17,8 +15,6 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Repository
-@Qualifier("njt")
 public class NJTransitRouteDao implements BusRouteDao {
     Logger log = LoggerFactory.getLogger(NJTransitRouteDao.class);
 
@@ -29,7 +25,7 @@ public class NJTransitRouteDao implements BusRouteDao {
     private final String urlBase;
 
     public NJTransitRouteDao(RestTemplate restTemplate,
-                             @Value("${njTransitBusRouteUrlTemplate}") String urlBase) {
+                             String urlBase) {
         this.restTemplate = restTemplate;
         this.urlBase = urlBase;
     }
