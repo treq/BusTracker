@@ -1,5 +1,8 @@
 package me.treq.service.BusTracker.njtransit;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableSet;
 import me.treq.service.BusTracker.dao.BusRouteDao;
 import me.treq.service.BusTracker.model.BusLine;
@@ -9,10 +12,10 @@ import me.treq.service.BusTracker.model.Location;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class NJTransitRouteDao implements BusRouteDao {
@@ -24,14 +27,29 @@ public class NJTransitRouteDao implements BusRouteDao {
 
     private final String urlBase;
 
+    private final LoadingCache<String, BusRoute> busRoutesCache;
+
     public NJTransitRouteDao(RestTemplate restTemplate,
                              String urlBase) {
         this.restTemplate = restTemplate;
         this.urlBase = urlBase;
+
+        this.busRoutesCache = CacheBuilder.newBuilder()
+                .expireAfterWrite(1, TimeUnit.MINUTES)
+                .build(new CacheLoader<String, BusRoute>() {
+                    @Override
+                    public BusRoute load(String routeId) throws Exception {
+                        return getRouteByIdWithoutCache(routeId);
+                    }
+                });
     }
 
     @Override
     public BusRoute getRouteById(String routeId) {
+        return this.busRoutesCache.getUnchecked(routeId);
+    }
+
+    private BusRoute getRouteByIdWithoutCache(String routeId) {
         Map<String, String> params = new HashMap<>();
         params.put("route", routeId);
         ResponseEntity<NJBusRoute> route = null;
@@ -90,8 +108,8 @@ public class NJTransitRouteDao implements BusRouteDao {
         double minLat = 360, minLong = 360;
         double maxLat = -360, maxLong = -360;
 
-        for (BusLine eachBusLine: busLines) {
-            for(Location eachLocation: eachBusLine.getPolyline()) {
+        for (BusLine eachBusLine : busLines) {
+            for (Location eachLocation : eachBusLine.getPolyline()) {
                 if (eachLocation.getLatitude() > maxLat) {
                     maxLat = eachLocation.getLatitude();
                 }
