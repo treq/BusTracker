@@ -1,0 +1,1 @@
+scp -r ./target/*.jar root@172.104.17.109:/root/env/NJTBusTrackerApi/
